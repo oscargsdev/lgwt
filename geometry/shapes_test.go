@@ -44,11 +44,7 @@ func TestAreaTable(t *testing.T) {
 	}{
 		{name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, want: 72.0},
 		{name: "Circle", shape: Circle{Radius: 10}, want: 314.1592653589793},
-<<<<<<< HEAD
-		{name: "Triangle", shape: Triangle{Base: 12, Height: 6}, want: 32.0},
-=======
 		{name: "Triangle", shape: Triangle{Base: 12, Height: 6}, want: 36.0},
->>>>>>> f2c41564d5aa1b59008e709bb5c26f87d4815388
 	}
 
 	for _, tt := range areaTests {
