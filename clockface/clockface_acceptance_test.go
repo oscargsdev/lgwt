@@ -3,6 +3,7 @@ package clockface_test
 import (
 	"bytes"
 	"encoding/xml"
+	"slices"
 	"testing"
 	"time"
 
@@ -67,14 +68,38 @@ func TestSVGWritterSecondHand(t *testing.T) {
 	}
 }
 
-func containsLine(l Line, ls []Line) bool {
-	for _, line := range ls {
-		if line == l {
-			return true
-		}
-	}
+// func TestSVGWritterMinuteHand(t *testing.T) {
+// 	cases := []struct {
+// 		time time.Time
+// 		line Line
+// 	}{
+// 		{
+// 			simpleTime(0, 0, 0),
+// 			Line{150, 150, 150, 70},
+// 		},
+// 	}
+//
+// 	for _, c := range cases {
+// 		t.Run(testName(c.time), func(t *testing.T) {
+// 			b := bytes.Buffer{}
+// 			clockface.SVGWritter(&b, c.time)
+//
+// 			svg := SVG{}
+// 			xml.Unmarshal(b.Bytes(), &svg)
+//
+// 			if !containsLine(c.line, svg.Line) {
+// 				t.Errorf(
+// 					"Expected to find the minute hand line %+v, in the SVG lines %+v",
+// 					c.line,
+// 					svg.Line,
+// 				)
+// 			}
+// 		})
+// 	}
+// }
 
-	return false
+func containsLine(l Line, ls []Line) bool {
+	return slices.Contains(ls, l)
 }
 
 func simpleTime(hours, minutes, seconds int) time.Time {
