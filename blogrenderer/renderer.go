@@ -15,12 +15,12 @@ type Post struct {
 }
 
 func Render(w io.Writer, p Post) error {
-	templ, err := template.ParseFS(postTemplate, "templates/blog.gohtml")
+	templ, err := template.ParseFS(postTemplate, "templates/*.gohtml")
 	if err != nil {
 		return err
 	}
 
-	if err := templ.Execute(w, p); err != nil {
+	if err := templ.ExecuteTemplate(w, "blog.gohtml", p); err != nil {
 		return err
 	}
 
