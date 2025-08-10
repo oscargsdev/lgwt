@@ -4,6 +4,7 @@ import (
 	"embed"
 	"html/template"
 	"io"
+	"strings"
 )
 
 //go:embed "templates/*"
@@ -12,6 +13,10 @@ var postTemplate embed.FS
 type Post struct {
 	Title, Description, Body string
 	Tags                     []string
+}
+
+func (p Post) SanitisedTitle() string {
+	return strings.ToLower(strings.ReplaceAll(p.Title, " ", "-"))
 }
 
 type PostRenderer struct {
@@ -29,6 +34,14 @@ func NewPostRenderer() (*PostRenderer, error) {
 
 func (r *PostRenderer) Render(w io.Writer, p Post) error {
 	if err := r.templ.ExecuteTemplate(w, "blog.gohtml", p); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *PostRenderer) RenderIndex(w io.Writer, posts []Post) error {
+	if err := r.templ.ExecuteTemplate(w, "index.gohtml", posts); err != nil {
 		return err
 	}
 
