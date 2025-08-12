@@ -29,6 +29,12 @@ func TestStack(t *testing.T) {
 		AssertEqual(t, val, 123)
 
 		AssertTrue(t, myStackOfInts.IsEmpty())
+
+		myStackOfInts.Push(1)
+		myStackOfInts.Push(2)
+		firstNum, _ := myStackOfInts.Pop()
+		secondNum, _ := myStackOfInts.Pop()
+		AssertEqual(t, firstNum+secondNum, 3)
 	})
 
 	t.Run("string stack", func(t *testing.T) {
