@@ -62,3 +62,24 @@ func AssertEqual[T comparable](t *testing.T, got, want T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+// Other tests
+
+func TestBadBank(t *testing.T) {
+	transactions := []Transaction{
+		{
+			From: "Oscar",
+			To:   "Vane",
+			Sum:  100,
+		},
+		{
+			From: "Paco",
+			To:   "Oscar",
+			Sum:  25,
+		},
+	}
+
+	AssertEqual(t, BalanceFor(transactions, "Vane"), 100)
+	AssertEqual(t, BalanceFor(transactions, "Oscar"), -75)
+	AssertEqual(t, BalanceFor(transactions, "Paco"), -25)
+}
